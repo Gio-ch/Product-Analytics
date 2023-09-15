@@ -23,3 +23,7 @@ Detail how you would measure these additional KPIs.
 ### 3. Analytical Approaches
 
 Provide basic ideas of analyses to conduct that could help explain why one model is outperforming the other based on the main KPI. Include at least one line graph analysis, defining the x-axis and y-axis parameters and the reason behind choosing them.
+
+
+## Solution
+View my solution [here](./KPI%20selection%20and%20analyses.pdf).
