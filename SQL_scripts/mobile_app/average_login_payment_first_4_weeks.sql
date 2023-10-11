@@ -7,16 +7,16 @@
 -- 4. No missing data in the columns that are relevant for this analysis.
 
 -- Optimization Notes:
--- For optimal performance, ensure that the following columns are indexed:
--- 1. user_id: is a strong candidate for indexing.
--- 2. event_name: 
--- 3. event_time:
+-- For optimal performance, following columns can be indexed:
+-- 1. user_id: strong candidate
+-- 2. event_name 
+-- 3. event_time
 
 WITH InstallationTime AS (
     SELECT 
         user_id,
         MIN(event_time) AS install_time
-    FROM portfolio.fact_table
+    FROM GameAnalyticsDB.fact_table
     WHERE event_name = 'install'
     GROUP BY user_id
 ),
@@ -27,7 +27,7 @@ EventCounts AS (
         COUNT( CASE WHEN b.event_name = 'login' THEN 1 ELSE NULL END) AS login_count,
         COUNT( CASE WHEN b.event_name = 'payment' THEN 1 ELSE NULL END) AS payment_count
     FROM InstallationTime AS a
-    LEFT JOIN portfolio.fact_table AS b ON a.user_id = b.user_id
+    LEFT JOIN GameAnalyticsDB.fact_table AS b ON a.user_id = b.user_id
         AND b.event_time BETWEEN a.install_time AND DATE_ADD(a.install_time, INTERVAL 28 DAY)
     GROUP BY a.user_id
 )
